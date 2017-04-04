@@ -31,9 +31,9 @@ buyer = Buyer()
 # 设定买家参数 
 buyer.is_first = False # 是否首套
 buyer.age = 36 # 买家年龄
-buyer.max_prepared_money = 420.0 # 初始总资金
-buyer.num_month_reserved = 12 # 预留多少个月的月供
-buyer.other_money_reserved = 10.0 # 其它预留资金
+buyer.max_prepared_money = 800.0 # 初始总资金
+buyer.num_month_reserved = 36 # 预留多少个月的月供
+buyer.other_money_reserved = 20.0 # 其它预留资金
 buyer.max_monthly_repayment = 3.0 # 可承受月供上限
 buyer.loan_from_fund_is_wanted = True # 是否需要公积金贷款
 
@@ -48,15 +48,15 @@ buyer.cal_limits()
 house = House(buyer)
 
 # 设定房屋参数
-house.type = "public"
-house.price = 570.0 # 实际成交价 (节点: 468.0)
-house.original_price = 0.0 # 房屋原值 (如果找不到, 设为0)
-house.num_holding_years = 5 # 房产证或契税票下发年数 (节点: 2, 5)
+house.type = "public" # 类型. "public": 公房; "commercial": 商品房; "affordable2": 二类经适房
+house.price = 1000.0 # 实际成交价
+house.original_price = 200.0 # 房屋原值 (如果原值不可溯, 设为0)
+house.num_holding_years = 5 # 房产证或契税票下发年数
 house.is_only = False # 是否业主 (家庭为单位) 在京唯一住房
-house.area = 40.0 # 房屋面积 (节点: 90, 140)
-house.building_year = 1992 # 建筑年代 (节点: 1992)
+house.area = 120.0 # 房屋面积
+house.building_year = 2000 # 建筑年代
 house.position = 5 # 位置: 5: 5环内; 6: 5-6环; 7: 6环外
-house.monthly_rent = 0.5 # 估计月租金 (如自住设为0)
+house.monthly_rent = 0.9 # 估计月租金 (如自住设为0)
 
 # 购房方案计算
 house.cal_plans()
