@@ -55,6 +55,7 @@ house.num_holding_years = 5 # 房产证或契税票下发年数
 house.is_only = False # 是否业主 (家庭为单位) 在京唯一住房
 house.area = 120.0 # 房屋面积
 house.building_year = 2000 # 建筑年代
+house.building_structure = "steel" # 建筑结构: "steel": 钢混; "brick": 砖混
 house.position = 5 # 位置: 5: 5环内; 6: 5-6环; 7: 6环外
 house.monthly_rent = 0.9 # 估计月租金 (如自住设为0)
 

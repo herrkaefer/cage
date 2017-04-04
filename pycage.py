@@ -193,6 +193,7 @@ class House():
         self.is_only = False # 是否业主 (家庭为单位) 在京唯一住房
         self.area = 40.0 # 房屋面积 (节点: 90, 140)
         self.building_year = 2000 # 建筑年代 (节点: 1992=>25年房龄)
+        self.building_structure = "steel" # 建筑结构: "steel": 钢混; "brick": 砖混
         self.position = 5 # 位置: 5: 5环内; 6: 5-6环; 7: 6环外
         self.floor_area_ratio = 1.5 # 小区容积率 (节点: 1.0)
         self.monthly_rent = 0.5 # 估计月租金 (如准备自住设为0)
@@ -270,9 +271,10 @@ class House():
             return 0.03575
 
 
-    # 公积金贷款年限 (粗略估计)
+    # 公积金贷款年限
     def loan_fund_years(self):
-        return min(25, 57-self.age(), 70-self.buyer.age)
+        bs_limit = 57 if self.building_structure == "steel" else 47
+        return min(25, bs_limit-self.age(), 69-self.buyer.age)
 
 
     # 公积金贷款总额 (粗略估计)
@@ -679,7 +681,7 @@ if __name__ == '__main__':
     buyer.max_prepared_money = 800.0 # 初始总资金
     buyer.max_monthly_repayment = 3.0 # 可承受月供上限
     buyer.loan_from_fund_is_wanted = True # 是否需要公积金贷款
-    # buyer.cal_limits()
+    buyer.cal_limits()
 
     # 针对某套房子计算
     house = House(buyer)
@@ -690,9 +692,8 @@ if __name__ == '__main__':
     house.is_only = False # 是否业主 (家庭为单位) 在京唯一住房
     house.area = 120.0 # 房屋面积 (节点: 90, 140)
     house.building_year = 2000 # 建筑年代
+    house.building_structure = "steel" # 建筑结构: "steel": 钢混; "brick": 砖混
     house.position = 5 # 位置: 5: 5环内; 6: 5-6环; 7: 6环外
     house.monthly_rent = 0.9 # 估计月租金 (如自住设为0)
-    buyer.print_info()
-    house.print_info()
     house.cal_plans()
 
