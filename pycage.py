@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # 北京二手房购房资金计算
-# 适用于: 北京五环内二手商品房, 公房, 二类经济适用房
+# 适用于: 北京二手商品房, 公房, 二类经济适用房
 # 资金单位: 万
 # author: herrkaefer
 # update: 2017.04.04
@@ -548,6 +548,8 @@ class House():
 
     # 通过遍历可行网签价, 判断买家资金是否允许购买此房, 并给出各种优化指标下的购房方案
     def cal_plans(self):
+        self.buyer.print_info()
+        self.print_info()
         print('-'*40)
 
         # 考虑买家能力的方案
