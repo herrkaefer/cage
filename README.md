@@ -1,4 +1,6 @@
-![](http://p3.pstatp.com/large/17f500006dcb4be47983)
+![](https://upload.wikimedia.org/wikipedia/commons/8/82/ColorBeijingMap.png)
+
+> 用市面上几乎所有的所谓房贷计算器去做购房资金计算, 都是错误的.
 
 `cage`: 北京二手房购房资金计算.
 
