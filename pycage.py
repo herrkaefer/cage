@@ -628,7 +628,7 @@ class House():
 
 
     def print_item(self):
-        print("%.1f\t%.1f\t%.1f\t%.1f\t公%.0f(%d) + 商%.0f(%d)\t%.1f\t%.1f (%4.1f+%4.1f+%4.1f+%4.1f)\t%.1f\t%4.2f (%.2f+%.2f)" %
+        print("%.1f\t%.1f\t%.1f\t%.1f\t公%.0f(%d) + 商%.0f(%d)\t%.1f\t%.1f (%.1f+%.1f+%.1f+%.1f)\t%.1f\t%4.2f (%.2f+%.2f)" %
             (self.price,\
              self.contract_price, \
              self.total_prepared_money(),\
