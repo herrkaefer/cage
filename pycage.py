@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 #
 # 北京二手房购房资金计算
-# 适用于: 北京二手商品房, 公房, 二类经济适用房
+# 适用于: 北京二手商品房, 公房, 一类/二类经济适用房
 # 资金单位: 万
 # author: herrkaefer
-# update: 2017.04.04
+# update: 2017.04.10
 
 # 功能:
 # - 针对买家能力, 计算其购买各类型房屋可承受上限
@@ -186,6 +186,7 @@ class House():
         self.type = "public" # 房屋类型:
                              # "commercial" (商品房),
                              # "public" (已购公房),
+                             # "affordable1" (一类经适房)
                              # "affordable2" (二类经适房)
         self.price = 530.0 # 实际成交价
         self.original_price = 0.0 # 房屋原值 (如果找不到, 设为0)
@@ -327,7 +328,7 @@ class House():
 
     # 增值税
     def value_added_tax(self):
-        # 满2年普通住宅, 公房, 或二类经适房, 免征
+        # 满2年的普通住宅/公房/二类经适房, 免征
         if (self.num_holding_years >= 2 and
             (self.is_normal() or self.type == "public" or self.type == "affordable2")):
             return 0.0
@@ -336,9 +337,12 @@ class House():
         vat = 0.0
 
         tax_base = max(self.contract_price, self.lowest_price())
-        if self.num_holding_years < 2: # 不满2年
+        # 不满2年
+        if self.num_holding_years < 2:
             vat = tax_base / 1.05 * value_added_tax_rate
-        else: # 满2年非普通商品房
+
+        # 满2年非普通
+        else:
             if self.original_price > 0: # 差额征收
                 vat = ((tax_base - self.original_price) / 1.05 * value_added_tax_rate)
             else: # 若原值找不到, 全额征收
@@ -378,9 +382,14 @@ class House():
                 return self.lowest_price() / 1.05 * 0.01
 
 
-    # 土地出让金: 商品房无, 公房可忽略
-    def land_transferring_fee(self):
-        if self.type == "affordable2":
+    # 土地出让金(一类经适房) or 综合地价款(二类经适房): 商品房无, 公房可忽略
+    def land_fee(self):
+        if self.type == "affordable1":
+            if self.building_year < 2008: # 精确应为2008.04.11
+                return 0.1 * max(self.contract_price, self.lowest_price())
+            else:
+                return 0.7 * (self.contract_price - self.original_price)
+        elif self.type == "affordable2":
             return 0.03 * max(self.contract_price, self.lowest_price())
         else:
             return 0.0
@@ -391,7 +400,7 @@ class House():
         return (self.deed_tax() +
                 self.value_added_tax() +
                 self.income_tax() +
-                self.land_transferring_fee())
+                self.land_fee())
 
 
     # 中介佣金
@@ -624,11 +633,11 @@ class House():
 
 
     def print_header(self):
-        print("成交价\t网签价\t首备\t首付\t贷\t\t\t首(房)\t税(契+增+个+土)\t\t\t中介\t月供")
+        print("成交价\t网签价\t首备\t首付\t贷\t\t\t首(房)\t税(契+增+个+地)\t\t\t中介\t月供")
 
 
     def print_item(self):
-        print("%.1f\t%.1f\t%.1f\t%.1f\t公%.0f(%d) + 商%.0f(%d)\t%.1f\t%.1f (%.1f+%.1f+%.1f+%.1f)\t%.1f\t%4.2f (%.2f+%.2f)" %
+        print("%.1f\t%.1f\t%.1f\t%.1f\t公%.0f(%d) + 商%.0f(%d)\t%.1f\t%.1f (%4.1f+%4.1f+%4.1f+%4.1f)\t%.1f\t%4.2f (%.2f+%.2f)" %
             (self.price,\
              self.contract_price, \
              self.total_prepared_money(),\
@@ -642,7 +651,7 @@ class House():
              self.deed_tax(),\
              self.value_added_tax(),\
              self.income_tax(),\
-             self.land_transferring_fee(),\
+             self.land_fee(),\
              self.commission(),\
              self.monthly_repayment(), \
              self.monthly_repayment_fund(), \
