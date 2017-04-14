@@ -91,4 +91,5 @@ ENV/
 
 .DS_Store
 
-test*
+py/test*
+iOS-app/
