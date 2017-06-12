@@ -261,7 +261,7 @@ class House():
     # 贷款总额度
     def loan(self):
         assert (self.contract_price is not None)
-        return self.contract_price * self.loan_bank_proportion()
+        return float(int(self.contract_price * self.loan_bank_proportion()))
 
 
     # 公积金贷款利率

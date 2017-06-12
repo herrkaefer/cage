@@ -1,12 +1,20 @@
 ![](https://upload.wikimedia.org/wikipedia/commons/8/82/ColorBeijingMap.png)
 
-> 用市面上几乎所有的所谓房贷计算器去做购房资金计算, 都是错误的.
+> 用市面上几乎所有的房贷/税费计算器去做购房资金计算, 都是错误的.
 >
-> 甚至链接官网上的计算器, 都是错误的.
+> 甚至链家官网上的计算器, 都是错误的.
 
-`cage`: 北京二手房购房资金计算.
+`cage`: 北京二手房购房资金方案计算.
 
-Last update: 2017.04.04
+(Last update: 2017.04.04)
+
+**Note**: 此 repo 中有些计算不是很准确, 因后来做成了 iOS App, 这里的 Python 版本便没有再更新了. 推荐使用`算房大师`App 进行计算:
+
+App Store 链接: [算房大师 (北京)](https://itunes.apple.com/app/算房大师北京/id1230526315)
+
+![算房大师](https://ws2.sinaimg.cn/large/006tNbRwly1fgiey1a2ogj30e80e8gst.jpg)
+
+ 
 
 # 适用
 
